@@ -1,0 +1,37 @@
+# Webhooks
+
+Receive real-time notifications for risk changes and actions.
+
+## 1) Register
+```bash
+curl -X POST https://api.shieldlabs.ai/v1/callback   -H "Authorization: Bearer SLSEC_xxx"   -H "Content-Type: text/plain"   -d 'https://your-domain.com/your-webhook'
+```
+
+## 2) Verify (HMAC-SHA256)
+
+Go:
+```go
+func Assign(d any, secret string) string {
+  b, _ := json.Marshal(d)
+  mac := hmac.New(sha256.New, []byte(secret))
+  mac.Write(b)
+  return hex.EncodeToString(mac.Sum(nil))
+}
+```
+
+Node:
+```js
+import crypto from 'crypto';
+export function verifyShieldlabsSignature(rawBody, signature, secret) {
+  const hmac = crypto.createHmac('sha256', secret).update(rawBody).digest('hex');
+  return crypto.timingSafeEqual(Buffer.from(hmac), Buffer.from(signature));
+}
+```
+
+Python:
+```python
+import hmac, hashlib
+def verify_signature(raw_body: bytes, signature: str, secret: str) -> bool:
+    digest = hmac.new(secret.encode(), raw_body, hashlib.sha256).hexdigest()
+    return hmac.compare_digest(digest, signature)
+```

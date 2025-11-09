@@ -1,0 +1,71 @@
+# Quickstart
+
+Follow these steps to get your first Trust Score in minutes.
+
+## 1) Get API keys
+Open the Dashboard → Settings → API keys. You will see:
+- Public key — used by the browser SDK
+- Secret key — used by your server/API calls
+- Webhook secret — used to verify webhook signatures
+
+## 2) Add the SDK to your site (module)
+```html
+<script type="module">
+  const mod = await import('https://cdn.shieldlabs.ai/snippet.js?publicKey=SLPUB_xxx');
+  // Authenticated user (use a stable hash, not the raw user id)
+  mod.checkAuthenticatedUser('user_hashed_id');    // runs on new/changed session or user hash
+  // mod.forceCheckAuthenticatedUser('user_hashed_id'); // force check now (ignores cooldowns)
+</script>
+
+<script type="module">
+  const mod = await import('https://cdn.shieldlabs.ai/snippet.js?publicKey=SLPUB_xxx');
+  // Anonymous or not logged in
+  mod.checkAnonymous();             // runs on session change
+  // mod.forceCheckAnonymous();      // force check now
+</script>
+```
+
+## 3) Allow CSP for SDK & API
+```
+add_header Content-Security-Policy "
+  default-src 'self';
+  script-src 'self' https://shieldlabs.ai https://cdn.shieldlabs.ai;
+  connect-src 'self' blob: *.shieldlabs.ai wss://*.shieldlabs.ai https://api.shieldlabs.ai;
+  img-src 'self' data: blob:;
+  style-src 'self' 'unsafe-inline';
+  font-src 'self';
+  base-uri 'self';
+  frame-ancestors 'none'
+" always;
+```
+
+## 4) Register a webhook
+```bash
+curl -X POST https://api.shieldlabs.ai/v1/callback   -H "Authorization: Bearer SLSEC_xxx"   -H "Content-Type: text/plain"   -d 'https://your-domain.com/your-webhook'
+```
+
+## 5) Identify users (server-side)
+```bash
+curl https://api.shieldlabs.ai/v1/identify   -H "Authorization: Bearer SLSEC_xxx"   -H "Content-Type: application/json"   -d '{
+    "uid": "user_123",
+    "sessionId": "sess_abc",
+    "traits": {"email":"a@b.com","plan":"pro"}
+  }'
+```
+
+## 6) Track events
+```bash
+curl https://api.shieldlabs.ai/v1/events   -H "Authorization: Bearer SLSEC_xxx"   -H "Content-Type: application/json"   -d '{
+    "uid": "user_123",
+    "name": "checkout_attempt",
+    "sessionId": "sess_abc",
+    "properties": {"amount": 49.0, "currency":"USD"}
+  }'
+```
+
+## 7) Request a Trust Score
+```bash
+curl "https://api.shieldlabs.ai/v1/score?uid=user_123&sessionId=sess_abc"   -H "Authorization: Bearer SLSEC_xxx"
+```
+
+Policy: >= 80 allow, 40–79 challenge, < 40 block.

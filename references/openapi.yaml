@@ -1,0 +1,35 @@
+openapi: 3.0.3
+info:
+  title: ShieldLabs API
+  version: "1.0.0"
+servers:
+  - url: https://api.shieldlabs.ai
+paths:
+  /v1/identify:
+    post:
+      summary: Identify user
+      security: [{ bearerAuth: [] }]
+      responses: { "200": { description: OK } }
+  /v1/events:
+    post:
+      summary: Track event
+      security: [{ bearerAuth: [] }]
+      responses: { "200": { description: OK } }
+  /v1/score:
+    get:
+      summary: Get score
+      security: [{ bearerAuth: [] }]
+      responses: { "200": { description: Score } }
+  /v1/history:
+    get:
+      summary: History
+      security: [{ bearerAuth: [] }]
+      responses: { "200": { description: History } }
+  /v1/webhook/verify:
+    post:
+      summary: Verify webhook signature
+      security: [{ bearerAuth: [] }]
+      responses: { "200": { description: Valid } }
+components:
+  securitySchemes:
+    bearerAuth: { type: http, scheme: bearer, bearerFormat: JWT }

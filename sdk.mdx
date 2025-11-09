@@ -1,0 +1,11 @@
+# JavaScript SDK
+
+Initialize once at app start:
+```js
+ShieldLabs('init', { publicKey: 'SLPUB_xxx', endpoint: 'https://api.shieldlabs.ai' });
+```
+
+Emit client-side events (optional):
+```js
+ShieldLabs('event', 'page_view', { path: location.pathname });
+```

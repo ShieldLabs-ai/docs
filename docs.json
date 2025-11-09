@@ -1,0 +1,139 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "ShieldLabs",
+  "colors": {
+    "primary": "#16A34A",
+    "light": "#34D399",
+    "dark": "#052e1a"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo-light.svg",
+    "dark": "/logo-dark.svg"
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Open Dashboard",
+      "href": "https://dashboard.shieldlabs.ai"
+    }
+  },
+  "redirects": [
+    {
+      "source": "/getting-started",
+      "destination": "/quickstart"
+    },
+    {
+      "source": "/webhook",
+      "destination": "/webhooks"
+    }
+  ],
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Start here",
+            "pages": [
+              "index",
+              "quickstart"
+            ]
+          },
+          {
+            "group": "Setup",
+            "pages": [
+              "setup",
+              "setup/keys",
+              "setup/environments",
+              "setup/csp",
+              "setup/webhooks",
+              "setup/domain"
+            ]
+          },
+          {
+            "group": "SDK",
+            "pages": [
+              "sdk",
+              "sdk/events",
+              "sdk/advanced"
+            ]
+          },
+          {
+            "group": "Concepts",
+            "pages": [
+              "concepts",
+              "concepts/trust-score",
+              "concepts/signals",
+              "concepts/devices",
+              "concepts/behavior",
+              "concepts/ids",
+              "concepts/reasons",
+              "concepts/rules"
+            ]
+          },
+          {
+            "group": "Cookbook",
+            "pages": [
+              "cookbook",
+              "cookbook/login-2fa",
+              "cookbook/checkout",
+              "cookbook/rate-limit-bypass",
+              "cookbook/kyc",
+              "cookbook/affiliate-fraud"
+            ]
+          },
+          {
+            "group": "Dashboard",
+            "pages": [
+              "dashboard",
+              "dashboard/analytics",
+              "dashboard/sessions",
+              "dashboard/rules"
+            ]
+          },
+          {
+            "group": "Operations",
+            "pages": [
+              "security",
+              "privacy-gdpr",
+              "billing",
+              "errors",
+              "rate-limits",
+              "faq",
+              "changelog"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API reference",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "api",
+              "api/overview",
+              "api/models"
+            ]
+          },
+          {
+            "group": "Endpoints",
+            "pages": [
+              "api/endpoint",
+              "api/endpoint/identify",
+              "api/endpoint/events",
+              "api/endpoint/score",
+              "api/endpoint/history",
+              "api/endpoint/webhook-verify"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "api": {
+    "openapi": "./references/openapi.yaml"
+  }
+}
